@@ -1,81 +1,59 @@
-<script setup lang="ts">
-import HelloWorld from './components/HelloWorld.vue'
-import TheWelcome from './components/TheWelcome.vue'
+<script lang="ts">
+import { defineComponent } from 'vue';
+import FooterSection from './components/FooterSection.vue';
+import RatingForm from './components/RatingForm.vue';
+import ThankYou from './components/ThankYou.vue';
+
+export default defineComponent({
+	data() {
+		return {
+			selected_rating: null as '1' | '2' | '3' | '4' | '5' | null,
+		};
+	},
+	mounted() {
+		this.selected_rating = null;
+	},
+	methods: {
+		updateRating(rating: '1' | '2' | '3' | '4' | '5') {
+			this.selected_rating = rating;
+		},
+	},
+	components: {
+		FooterSection,
+		RatingForm,
+		ThankYou,
+	},
+});
 </script>
 
 <template>
-  <header>
-    <img alt="Vue logo" class="logo" src="./assets/logo.svg" width="125" height="125" />
+	<main>
+		<rating-form v-if="!selected_rating" :choose-rating="updateRating" />
+		<thank-you v-else :selected_rating="selected_rating" />
+	</main>
 
-    <div class="wrapper">
-      <HelloWorld msg="You did it!" />
-    </div>
-  </header>
-
-  <main>
-    <TheWelcome />
-  </main>
+	<footer-section />
 </template>
 
-<style>
-@import './assets/base.css';
+<style lang="scss">
+@import url('https://fonts.googleapis.com/css2?family=Overpass:wght@400;700&display=swap');
+@import './assets/scss/base.scss';
+@import './assets/scss/variables.scss';
 
 #app {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
+	min-height: 100%;
+	font-family: 'Overpass', sans-serif;
+	font-size: 15px;
+	background-color: $Very-Dark-Blue;
+	display: grid;
+	place-items: center;
 
-  font-weight: normal;
-}
-
-header {
-  line-height: 1.5;
-}
-
-.logo {
-  display: block;
-  margin: 0 auto 2rem;
-}
-
-a,
-.green {
-  text-decoration: none;
-  color: hsla(160, 100%, 37%, 1);
-  transition: 0.4s;
-}
-
-@media (hover: hover) {
-  a:hover {
-    background-color: hsla(160, 100%, 37%, 0.2);
-  }
-}
-
-@media (min-width: 1024px) {
-  body {
-    display: flex;
-    place-items: center;
-  }
-
-  #app {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    padding: 0 2rem;
-  }
-
-  header {
-    display: flex;
-    place-items: center;
-    padding-right: calc(var(--section-gap) / 2);
-  }
-
-  header .wrapper {
-    display: flex;
-    place-items: flex-start;
-    flex-wrap: wrap;
-  }
-
-  .logo {
-    margin: 0 2rem 0 0;
-  }
+	main {
+		width: 375px;
+		max-width: 90%;
+		height: 375px;
+		border-radius: 28px;
+		background-color: $Dark-Blue;
+	}
 }
 </style>

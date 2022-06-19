@@ -1,9 +1,12 @@
 <script lang="ts">
 import { defineComponent } from 'vue';
 import type { PropType } from 'vue';
+
+type RatingType = '1' | '2' | '3' | '4' | '5';
+
 export default defineComponent({
 	props: {
-		selected_rating: { type: String as PropType<'1' | '2' | '3' | '4' | '5'>, required: true },
+		selected_rating: { type: String as PropType<RatingType>, required: true },
 	},
 });
 </script>

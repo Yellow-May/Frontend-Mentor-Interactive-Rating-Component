@@ -4,17 +4,19 @@ import FooterSection from './components/FooterSection.vue';
 import RatingForm from './components/RatingForm.vue';
 import ThankYou from './components/ThankYou.vue';
 
+type RatingType = '1' | '2' | '3' | '4' | '5';
+
 export default defineComponent({
 	data() {
 		return {
-			selected_rating: null as '1' | '2' | '3' | '4' | '5' | null,
+			selected_rating: null as RatingType | null,
 		};
 	},
 	mounted() {
 		this.selected_rating = null;
 	},
 	methods: {
-		updateRating(rating: '1' | '2' | '3' | '4' | '5') {
+		updateRating(rating: RatingType) {
 			this.selected_rating = rating;
 		},
 	},

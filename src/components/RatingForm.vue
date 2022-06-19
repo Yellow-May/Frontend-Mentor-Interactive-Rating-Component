@@ -2,10 +2,14 @@
 import { defineComponent } from 'vue';
 import type { PropType } from 'vue';
 
+type RatingType = '1' | '2' | '3' | '4' | '5';
+const formGroups: RatingType[] = ['1', '2', '3', '4', '5'];
+
 export default defineComponent({
 	data() {
 		return {
-			rating_pick: '1' as '1' | '2' | '3' | '4' | '5',
+			rating_pick: '1' as RatingType,
+			formGroups,
 		};
 	},
 	mounted() {
@@ -13,7 +17,7 @@ export default defineComponent({
 	},
 	props: {
 		chooseRating: {
-			type: Function as PropType<(rating: '1' | '2' | '3' | '4' | '5') => void>,
+			type: Function as PropType<(rating: RatingType) => void>,
 			required: true,
 		},
 	},
@@ -42,25 +46,9 @@ export default defineComponent({
 
 		<form name="select-rating" class="select-rating" @submit="onsubmit">
 			<fieldset>
-				<div class="form-group">
-					<input type="radio" name="rating" id="1" value="1" v-model="rating_pick" />
-					<label for="1">1</label>
-				</div>
-				<div class="form-group">
-					<input type="radio" name="rating" id="2" value="2" v-model="rating_pick" />
-					<label for="2">2</label>
-				</div>
-				<div class="form-group">
-					<input type="radio" name="rating" id="3" value="3" v-model="rating_pick" />
-					<label for="3">3</label>
-				</div>
-				<div class="form-group">
-					<input type="radio" name="rating" id="4" value="4" v-model="rating_pick" />
-					<label for="4">4</label>
-				</div>
-				<div class="form-group">
-					<input type="radio" name="rating" id="5" value="5" v-model="rating_pick" />
-					<label for="5">5</label>
+				<div v-for="formGroup in formGroups" :key="formGroup" class="form-group">
+					<input type="radio" name="rating" :id="formGroup" :value="formGroup" v-model="rating_pick" />
+					<label :for="formGroup">{{ formGroup }}</label>
 				</div>
 			</fieldset>
 
